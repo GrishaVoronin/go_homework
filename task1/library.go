@@ -3,7 +3,7 @@ package main
 type Library interface {
 	Search(name string) (Book, bool)
 	AddBook(*Book)
-	ChangeStorage()
+	ChangeStorage(storage *BookStorage)
 	SetGeneratorId(func(string) string)
 }
 
@@ -36,9 +36,8 @@ func (myLib *MyLibrary) Search(name string) (Book, bool) {
 	return myLib.searcher.Search(id)
 }
 
-func (myLib *MyLibrary) ChangeStorage() {
-	var newStorage BookStorage = NewMyBookStorage()
-	myLib.searcher.ChangeStorage(&newStorage)
-	myLib.bookAdder.ChangeStorage(&newStorage)
+func (myLib *MyLibrary) ChangeStorage(newStorage *BookStorage) {
+	myLib.searcher.ChangeStorage(newStorage)
+	myLib.bookAdder.ChangeStorage(newStorage)
 	myLib.booksId = make(map[string]string)
 }

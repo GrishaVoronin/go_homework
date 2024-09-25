@@ -10,7 +10,7 @@ func main() {
 	book3 := Book{title: "Сумеречный дозор", author: "Сергей Лукьяненко", year: 2004, pagesAmount: 5, pages: pages}
 	books := []Book{book1, book2, book3}
 	//create library
-	var storage BookStorage = NewMyBookStorage()
+	var storage BookStorage = NewSliceBookStorage()
 	var searcher Searcher = NewMySearcher(&storage)
 	var adder BookAdder = NewMyBookAdder(&storage)
 	var lib Library = NewMyLibrary(&searcher, &adder, GenerateId1)
@@ -40,7 +40,8 @@ func main() {
 		book.print()
 	}
 	//change storage
-	lib.ChangeStorage()
+	var newStorage BookStorage = NewSliceBookStorage()
+	lib.ChangeStorage(&newStorage)
 	//create books
 	book4 := Book{title: "Последний дозор", author: "Сергей Лукьяненко", year: 2006, pagesAmount: 5, pages: pages}
 	book5 := Book{title: "Новый дозор", author: "Сергей Лукьяненко", year: 2012, pagesAmount: 5, pages: pages}
