@@ -11,29 +11,29 @@ type MyLibrary struct {
 	booksId    map[string]string
 }
 
-func NewMyLibrary(storage *storage.BookStorage, genId func(string) string) *MyLibrary {
-	return &MyLibrary{*storage, genId, make(map[string]string)}
+func NewMyLibrary(s *storage.BookStorage, genId func(string) string) *MyLibrary {
+	return &MyLibrary{*s, genId, make(map[string]string)}
 }
 
 func (myLib *MyLibrary) SetGeneratorId(genId func(string) string) {
 	myLib.generateId = genId
 }
 
-func (myLib *MyLibrary) AddBook(book *models.Book) {
-	id := myLib.generateId(book.Title)
-	myLib.booksId[book.Title] = id
-	myLib.Storage.AddBook(book, id)
+func (m *MyLibrary) AddBook(book *models.Book) {
+	id := m.generateId(book.Title)
+	m.booksId[book.Title] = id
+	m.Storage.AddBook(book, id)
 }
 
-func (myLib *MyLibrary) Search(name string) (models.Book, bool) {
-	id, ok := myLib.booksId[name]
+func (m *MyLibrary) Search(name string) (models.Book, bool) {
+	id, ok := m.booksId[name]
 	if !ok {
 		return models.Book{}, false
 	}
-	return myLib.Storage.Search(id)
+	return m.Storage.Search(id)
 }
 
-func (myLib *MyLibrary) ChangeStorage(newStorage *storage.BookStorage) {
-	myLib.Storage = *newStorage
-	myLib.booksId = make(map[string]string)
+func (m *MyLibrary) ChangeStorage(newStorage *storage.BookStorage) {
+	m.Storage = *newStorage
+	m.booksId = make(map[string]string)
 }

@@ -11,12 +11,12 @@ func NewSliceBookStorage() *SliceBookStorage {
 	return &SliceBookStorage{make(map[string]int), []models.Book{}}
 }
 
-func (myStorage *SliceBookStorage) AddBook(book *models.Book, id string) {
-	myStorage.bookLocation[id] = len(myStorage.books)
-	myStorage.books = append(myStorage.books, *book)
+func (m *SliceBookStorage) AddBook(book *models.Book, id string) {
+	m.bookLocation[id] = len(m.books)
+	m.books = append(m.books, *book)
 }
 
-func (myStorage *SliceBookStorage) Search(id string) (models.Book, bool) {
-	ind := myStorage.bookLocation[id]
-	return myStorage.books[ind], true
+func (m *SliceBookStorage) Search(id string) (models.Book, bool) {
+	ind := m.bookLocation[id]
+	return m.books[ind], true
 }

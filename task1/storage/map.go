@@ -10,10 +10,10 @@ func NewMapBookStorage() *MapBookStorage {
 	return &MapBookStorage{make(map[string]models.Book)}
 }
 
-func (myStorage *MapBookStorage) AddBook(book *models.Book, id string) {
-	myStorage.books[id] = *book
+func (m *MapBookStorage) AddBook(book *models.Book, id string) {
+	m.books[id] = *book
 }
 
-func (myStorage *MapBookStorage) Search(id string) (models.Book, bool) {
-	return myStorage.books[id], true
+func (m *MapBookStorage) Search(id string) (models.Book, bool) {
+	return m.books[id], true
 }
