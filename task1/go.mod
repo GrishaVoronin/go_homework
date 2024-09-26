@@ -1,1 +1,1 @@
-module library
+module lib
