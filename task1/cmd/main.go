@@ -17,7 +17,7 @@ func main() {
 	books := []models.Book{book1, book2, book3}
 	//create library
 	var cur_storage storage.BookStorage = storage.NewSliceBookStorage()
-	var lib library.Library = library.NewMyLibrary(&cur_storage, id_generators.GenerateIdMD5)
+	var lib library.Library = library.NewMyLibrary(cur_storage, id_generators.GenerateIdMD5)
 	//add books
 	for _, book := range books {
 		lib.AddBook(&book)
@@ -45,7 +45,7 @@ func main() {
 	}
 	//change storage
 	var newStorage storage.BookStorage = storage.NewSliceBookStorage()
-	lib.ChangeStorage(&newStorage)
+	lib = library.NewMyLibrary(newStorage, id_generators.GenerateIdSHA256)
 	//create books
 	book4 := models.Book{Title: "Последний дозор", Author: "Сергей Лукьяненко", Year: 2006, PagesAmount: 5, Pages: Pages}
 	book5 := models.Book{Title: "Новый дозор", Author: "Сергей Лукьяненко", Year: 2012, PagesAmount: 5, Pages: Pages}
