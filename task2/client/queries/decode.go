@@ -7,17 +7,17 @@ import (
 	"net/http"
 )
 
-type inputString struct {
-	InputString string `json:"inputString"`
+type userInput struct {
+	Value string `json:"inputString"`
 }
 
-type outputString struct {
-	OutputString string `json:"outputString"`
+type processedOutput struct {
+	Value string `json:"outputString"`
 }
 
-func DecodeString(url string, input_string string) (string, error) {
-	string_to_decode := inputString{InputString: input_string}
-	jsonData, err := json.Marshal(string_to_decode)
+func DecodeString(url string, data string) (string, error) {
+	stringToDecode := userInput{Value: data}
+	jsonData, err := json.Marshal(stringToDecode)
 	if err != nil {
 		return "", err
 	}
@@ -32,10 +32,10 @@ func DecodeString(url string, input_string string) (string, error) {
 		return "", err
 	}
 
-	var output_string outputString
-	err = json.Unmarshal(body, &output_string)
+	var outputString processedOutput
+	err = json.Unmarshal(body, &outputString)
 	if err != nil {
 		return "", err
 	}
-	return output_string.OutputString, nil
+	return outputString.Value, nil
 }
